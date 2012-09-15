@@ -17,6 +17,6 @@ grails.plugin.quartz2.jobSetup.checkServices = { quartzScheduler, ctx ->
 	def jobDetail = ClosureJob.createJob { jobCtx , appCtx->
 		appCtx.pushService.checkServices()		
 	}
-	def trigger1 = new SimpleTriggerImpl(name:"trig1", startTime:new Date(),repeatInterval:5000,repeatCount:-1)
+	def trigger1 = new SimpleTriggerImpl(name:"trig1", startTime:new Date(),repeatInterval:15*1000,repeatCount:-1)
 	quartzScheduler.scheduleJob(jobDetail, trigger1)
 }

@@ -9,7 +9,7 @@ class FayeEndpoint {
 	String name
 	String publishUrl
 	boolean active = true
-	boolean online = true
+	boolean online = false
 	Date lastCheck = null
 	
 	static hasMany = [channels : FayeChannel]

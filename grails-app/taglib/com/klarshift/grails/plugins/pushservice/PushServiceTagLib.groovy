@@ -15,6 +15,11 @@ class PushServiceTagLib {
 		} 
 	}
 	
+	def clientUrl = { attrs ->
+		FayeEndpoint e = pushService.getEndpoint(attrs.endpoint)
+		out << e.publishUrl + "/faye"
+	}
+	
 	def ifOffline = { attrs, body ->
 		if(!pushService.isOnline(attrs.endpoint, attrs.channel)){
 			out << body()
