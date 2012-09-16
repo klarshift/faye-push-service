@@ -8,9 +8,7 @@
   <type>FayePushServiceGrailsPlugin</type>
   <resources>
     <resource>FayePushServiceDefaultConfig</resource>
-    <resource>com.klarshift.grails.plugins.pushservice.FayeChannelController</resource>
     <resource>com.klarshift.grails.plugins.pushservice.FayeEndpointController</resource>
-    <resource>com.klarshift.grails.plugins.pushservice.FayeChannel</resource>
     <resource>com.klarshift.grails.plugins.pushservice.FayeEndpoint</resource>
     <resource>com.klarshift.grails.plugins.pushservice.PushService</resource>
     <resource>com.klarshift.grails.plugins.pushservice.PushServiceTagLib</resource>
