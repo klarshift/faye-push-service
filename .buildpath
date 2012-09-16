@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <buildpath>
+	<buildpathentry kind="src" path="src/java"/>
+	<buildpathentry kind="src" path="src/groovy"/>
+	<buildpathentry kind="src" path="grails-app/conf"/>
+	<buildpathentry kind="src" path="grails-app/controllers"/>
+	<buildpathentry kind="src" path="grails-app/domain"/>
+	<buildpathentry kind="src" path="grails-app/services"/>
+	<buildpathentry kind="src" path="grails-app/taglib"/>
+	<buildpathentry kind="src" path="grails-app/utils"/>
+	<buildpathentry kind="src" path="test/integration"/>
+	<buildpathentry kind="src" path="test/unit"/>
+	<buildpathentry kind="src" path=".link_to_grails_plugins/hibernate-2.1.0/grails-app/i18n"/>
+	<buildpathentry kind="src" path=".link_to_grails_plugins/plugin-config-0.1.5/grails-app/conf"/>
+	<buildpathentry kind="src" path=".link_to_grails_plugins/plugin-config-0.1.5/grails-app/i18n"/>
+	<buildpathentry kind="src" path=".link_to_grails_plugins/plugin-config-0.1.5/src/groovy"/>
+	<buildpathentry kind="src" path=".link_to_grails_plugins/plugin-config-0.1.5/src/java"/>
+	<buildpathentry kind="src" path=".link_to_grails_plugins/quartz2-0.2.3/grails-app/conf"/>
+	<buildpathentry kind="src" path=".link_to_grails_plugins/quartz2-0.2.3/src/groovy"/>
+	<buildpathentry kind="src" path=".link_to_grails_plugins/quartz2-0.2.3/src/java"/>
+	<buildpathentry kind="src" path=".link_to_grails_plugins/release-1.0.0/src/groovy"/>
+	<buildpathentry kind="src" path=".link_to_grails_plugins/release-1.0.0/src/java"/>
+	<buildpathentry kind="src" path=".link_to_grails_plugins/svn-1.0.1/src/groovy"/>
+	<buildpathentry kind="con" path="org.eclipse.dltk.mod.launching.INTERPRETER_CONTAINER"/>
+	<buildpathentry kind="con" path="org.ebayopensource.vjet.eclipse.core.JSNATIVE_CONTAINER/JS Native Types"/>
+	<buildpathentry kind="con" path="org.ebayopensource.vjet.eclipse.core.BROWSER_CONTAINER/Browser SDK"/>
 	<buildpathentry external="true" kind="lib" path="/home/timo/.grails/ivy-cache/commons-validator/commons-validator/jars/commons-validator-1.3.1.jar"/>
 </buildpath>
