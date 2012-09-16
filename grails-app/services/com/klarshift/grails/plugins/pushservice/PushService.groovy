@@ -5,10 +5,7 @@ import groovy.json.JsonSlurper
 
 /**
  * push service
- * @author timo
- * 
- * TODO: SSL, encryption
- * TODO: response status on publish
+ * @author timo@klarshift.de
  *
  */
 class PushService {
@@ -25,20 +22,14 @@ class PushService {
 	
 	/**
 	 * check online state of an endpoint
-	 * and ooptional channel
 	 * @param endpointName
 	 * @return
 	 */
-	public boolean isOnline(String endpointName, String channelName = null){		
+	public boolean isOnline(String endpointName){		
 		FayeEndpoint e = getEndpoint(endpointName)
 		if(!e)return false		
 		if(!e.active)return false
 		if(!e.online)return false
-		if(channelName){
-			FayeChannel c = getChannel(e, channelName)
-			if(!c)return false
-			if(!c.active)return false
-		}		
 		return true
 	}
 	
@@ -97,33 +88,11 @@ class PushService {
 	 */
 	public FayeEndpoint createEndpoint(String name, String publishUrl){
 		FayeEndpoint endpoint = new FayeEndpoint(name: name, publishUrl: publishUrl)
-		log.info("Created endpoint `$endpoint`")
-		return endpoint
-	}
-
-	/**
-	 * create a faye channel
-	 * @param endpoint
-	 * @param name
-	 * @return
-	 */
-	public FayeChannel createChannel(FayeEndpoint endpoint, String name, boolean active = true){
-		FayeChannel c = new FayeChannel(name: name, endpoint: endpoint)
-		endpoint.addToChannels(c)
-		log.info("Added channel `$c`")
-		return c
-	}
-	
-	/**
-	 * delete a faye channel
-	 * @param endpoint
-	 * @param channel
-	 * @return
-	 */
-	public boolean deleteChannel(FayeEndpoint endpoint, FayeChannel channel){
-		endpoint.removeFromChannels(channel)
-		endpoint.save(flush: true)
-		channel.delete(flush: true)
+		if(endpoint.save(flush: true)){
+			log.info("Created endpoint `$endpoint`")
+			return endpoint
+		}
+		return null
 	}
 	
 	/**
@@ -136,19 +105,6 @@ class PushService {
 	}
 
 	/**
-	 * get channel by endpoint and name
-	 * @param endpoint
-	 * @param channelName
-	 * @return
-	 */
-	public FayeChannel getChannel(FayeEndpoint endpoint, String channelName){
-		if(channelName.startsWith('/session/')){
-			return new FayeChannel(name: channelName, endpoint: endpoint)
-		}
-		return FayeChannel.findByEndpointAndName(endpoint, channelName)
-	}
-
-	/**
 	 * publish data to endpoint channel
 	 * @param endpointName
 	 * @param channelName
@@ -156,39 +112,16 @@ class PushService {
 	 * @return
 	 */
 	public boolean publish(String endpointName, String channelName, data) {
-		// get service
-		FayeEndpoint endpoint = getEndpoint(endpointName)
-		if(!endpoint){
-			log.error("Service [$endpointName] not found.")
-			return false
-		}
-
-		// check service online state
-		if(!endpoint.active){
-			log.info("Service [$endpointName] is not active. Will not push to that service.")
-			return false
-		}
-		if(!endpoint.online){
+		// check online state
+		if(!isOnline(endpointName)){
 			log.error("Service [$endpointName] is OFFLINE.")
 			return false
-		}
+		}	
 		
-		// get channel
-		FayeChannel channel = getChannel(endpoint, channelName)
-		if(!channel){
-			log.error("Channel [$channelName] for service [$endpointName] not found.")
-			return false
-		}
-
-		// check channel state
-		if(!channel.active){
-			// do nothing
-			log.debug("Channel [$channelName] for service [$endpointName] deactivated.")
-			return false
-		}
+		FayeEndpoint endpoint = getEndpoint(endpointName)	
 
 		// pack packet
-		def packet = [channel: channel.name, data: data]
+		def packet = [channel: channelName, data: data]
 		try{
 			String json = (packet as JSON).toString()			
 			URL url = new URL(endpoint.publishUrl)

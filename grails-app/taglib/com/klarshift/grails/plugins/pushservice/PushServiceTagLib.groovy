@@ -10,7 +10,7 @@ class PushServiceTagLib {
 	def pushService
 	
 	def ifOnline = { attrs, body ->
-		if(pushService.isOnline(attrs.endpoint, attrs.channel ?: null)){
+		if(pushService.isOnline(attrs.endpoint)){
 			out << body()
 		} 
 	}
@@ -21,7 +21,7 @@ class PushServiceTagLib {
 	}
 	
 	def ifOffline = { attrs, body ->
-		if(!pushService.isOnline(attrs.endpoint, attrs.channel)){
+		if(!pushService.isOnline(attrs.endpoint)){
 			out << body()
 		}
 	}

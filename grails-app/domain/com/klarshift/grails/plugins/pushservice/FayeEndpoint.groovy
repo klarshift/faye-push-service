@@ -2,7 +2,8 @@ package com.klarshift.grails.plugins.pushservice
 
 /**
  * faye endpoint
- * @author timo
+ * 
+ * @author timo@klarshift.de
  *
  */
 class FayeEndpoint {
@@ -10,17 +11,19 @@ class FayeEndpoint {
 	String publishUrl
 	boolean active = true
 	boolean online = false
-	Date lastCheck = null
-	
-	static hasMany = [channels : FayeChannel]
+	Date lastCheck = null	
 
     static constraints = {
-		name nullable: false, blank: false
+		name unique: true, nullable: false, blank: false
 		publishUrl nullable: false
 		active nullable: false
 		online nullable: false
 		lastCheck nullable: true		
     }
+	
+	static mapping = {
+		cache true
+	}
 	
 	public String toString(){
 		"$name:$publishUrl"
